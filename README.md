@@ -29,13 +29,14 @@ This is a web-based application designed to help manage various operations in a 
 3. Restore the required NuGet packages:
 
      In Visual Studio, go to Tools -> NuGet Package Manager -> Package Manager Console, then run: 
-       Update-Package
+       ```bash
+      Update-Package
 
-4. Build the project:
+5. Build the project:
 
     Press Ctrl+Shift+B to build the solution.
 
-5. Run the application:
+6. Run the application:
 
     Press F5 or click on Start Debugging in Visual Studio.
 
