@@ -27,10 +27,10 @@ This is a web-based application designed to help manage various operations in a 
 2. Open the project in Visual Studio (or your preferred IDE that supports ASP.NET MVC).
 
 3. Restore the required NuGet packages:
-
-     In Visual Studio, go to Tools -> NuGet Package Manager -> Package Manager Console, then run: 
-       ```bash Update-Package
-
+   - In Visual Studio, go to **Tools** -> **NuGet Package Manager** -> **Package Manager Console**, then run:
+     ```bash
+     Update-Package
+     ```
 5. Build the project:
 
     Press Ctrl+Shift+B to build the solution.
