@@ -29,8 +29,7 @@ This is a web-based application designed to help manage various operations in a 
 3. Restore the required NuGet packages:
 
      In Visual Studio, go to Tools -> NuGet Package Manager -> Package Manager Console, then run: 
-       ```bash
-      Update-Package
+       ```bash Update-Package
 
 5. Build the project:
 
