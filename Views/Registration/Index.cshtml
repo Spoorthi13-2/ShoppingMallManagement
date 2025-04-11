@@ -1,0 +1,191 @@
+﻿@model ShoppingProjectA.Models.Registration
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    #formBody {
+        margin-left: 80px;
+    }
+    .form-control:focus {
+        border-color: darkred;
+    }
+    #regform {
+        align-content: center;
+        margin-left: 200px;
+        border: double;
+
+        border-color: navy;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+ $(document).ready(function(){
+  $("#reg").on("click",function()
+  {
+      $("#secretqstns").show();
+      if ($("#fn").val() == '' || $("#ln").val() == '' || $("#dob").val() == '' || $("#gen").val() == '' || $("#cn").val() == '' || $("#em").val() == '' || $("#cat").val() == '' || $("#us").val() == '' || $("#pw").val() == '' || $("#re").val() == '' || $("#bc").val() == '' || $("#bf").val() == '' || $("#ss").val() == '') {
+          alert('Please update the highlighted mandatory field(s)');
+      }
+  });
+});
+</script>
+<h2 style="text-align:center; color: navy">Register Now!</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div id="regform" style="height:1200px; width:950px;">
+    <div class="container-fluid">
+
+
+        <div class="form-horizontal" id="formBody">
+            <br />
+            <div style="color:red; text-align: center;" class="h4">
+                @Html.DisplayFor(m => m.ErrorMesssage)
+            </div>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "fn", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @id = "ln", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @id = "dob", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Gender, (IEnumerable<SelectListItem>)ViewData["GenderType"], "Select Gender", new { @id = "gen", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @id = "cn", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @id = "em", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Category, (IEnumerable<SelectListItem>)ViewBag.listOfCategories, "Select Category", new { @id = "cat", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @id = "us", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id = "pw", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RePassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.RePassword, new { htmlAttributes = new { @id = "re", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RePassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div  id="secretqstns" style="display:none;">
+            <div class="form-group">
+                <h5>(Please answer the questions for security purpose when you change password or forgot password or user Id)</h5>
+            </div>
+                <div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.BirthCity, htmlAttributes: new { @id = "lbl", @class = "control-label col-md-2" })<br />
+                <div class="col-md-10">
+
+                    @Html.EditorFor(model => model.BirthCity, new { htmlAttributes = new { @id = "bc", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BirthCity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BestFriendName, htmlAttributes: new { @id = "lbl", @class = "control-label col-md-2" })<br />
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BestFriendName, new { htmlAttributes = new { @id = "bf", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BestFriendName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Strength, htmlAttributes: new { @id = "lbl", @class = "control-label col-md-2" })<br />
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Strength, new { htmlAttributes = new { @id = "ss", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Strength, "", new { @class = "text-danger" })
+                </div>
+            </div>
+                    </div>
+            </div>
+
+
+            <div style="color:darkred">
+                @Html.DisplayFor(m => m.ErrorMesssage)
+            </div>
+            <div>
+                <p>
+                    By clicking Register, you accept our @Html.ActionLink("Terms & Conditions", "termsAndConditions", "Registration")
+                </p>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="reg" style="color:white; background-color:green; margin-right: 30px;" type="submit" value="Register" class="btn btn-default" />
+
+                    <input style="color:black; background-color:white" type="reset" value="Reset" class="btn btn-default" />
+                </div>
+            </div>
+            <div>
+                <p>Already registered?@Html.ActionLink("Login Here", "LoginIndex", "Login")</p>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

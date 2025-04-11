@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        
+
+        .mybrdr {
+            border: double;
+            border-color: navy;
+        }
+
+        #overtop {
+            background-color: darkgoldenrod;
+            height: 12px;
+        }
+    </style>
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("shopownernav")
+
+        <div class="container body-content">
+
+            @model ShoppingProjectA.Models.StoreReqVM
+            <div style="color:black">
+                @Html.DisplayFor(m => m.requestTable.Message)
+            </div>
+
+            <h2 style="color:navy; text-align:center;">Store Details</h2>
+            <div class="bdy">
+                <div class="mybrdr">
+
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Store Number")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Store Location")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Area")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Store Size")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Occupancy Status")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Type")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Amount")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Shop Name")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Business Category")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Agreement Tenure")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Action")
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.storeDetails)
+                            {
+                                <tr>
+
+                                    <td>
+
+                                        @Html.DisplayFor(modelItem => item.StoreNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StoreLocation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Area)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StoreSize)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OccupancyStatus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td>
+                                        @if (item.ShopName == null)
+                                        {
+                                            @Html.DisplayName("NA");
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => item.ShopName)
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.BusinessCategory == null)
+                                        {
+                                            @Html.DisplayName("NA");
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => item.BusinessCategory)
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.AgreementTenure == null)
+                                        {
+                                            @Html.DisplayName("NA");
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => item.AgreementTenure)
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.OccupancyStatus == "Occupied")
+                                        {
+                                            <button class="btn btn-block">Occupied</button>
+                                        }
+                                        else
+                                        {
+                                            if (((string)Session["strno"] == null || Model.requestTable == null) && (string)TempData["status"] == "Request")
+                                            {
+                                                <button class="btn btn-success">@Html.ActionLink("Request", "RaiseRequestForStore", new { storeno = item.StoreNo }, new { @style = "color:white" })</button>
+
+                                            }
+                                            else if ((Model.requestTable.StoreNo == (string)Session["strno"] && Model.requestTable.ShopOwnerName == (string)TempData["shopOwnerName"]) && (string)TempData["status"] == "Request")
+                                            {
+                                                <button class="btn btn-success">@Html.ActionLink("Request", "RaiseRequestForStore", new { storeno = item.StoreNo }, new { @style = "color:white" })</button>
+                                            }
+
+                                            else if ((Model.requestTable.StoreNo == (string)Session["strno"]) && (Model.requestTable.Status == (string)TempData["status"] || (string)TempData["status"] == "Approved") && Model.requestTable.ShopOwnerName == (string)TempData["shopOwnerName"])
+                                            {
+                                                <button class="btn btn-block">Approved</button>
+                                            }
+
+                                            else
+                                            {
+                                                <button class="btn btn-block">Requested</button>
+                                            }
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    else
+    {
+        @Html.Partial("sessionexpired");
+    }
+</body>
+</html>
+
+

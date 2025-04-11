@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        background-color: white;
+    }
+
+    .headercontainer {
+        top: 0 auto;
+    }
+
+    html {
+        font-family: "helvetica neue", "Arial", "sans-serif";
+    }
+    .description {
+        font-family:Arial, Helvetica, sans-serif;
+    }
+
+    .header1 {
+        width: 99%;
+        font-size: 50px;
+        margin: 0 auto;
+        color: navy;
+        text-align: center;
+    }
+
+    .header2 {
+        width: 99%;
+        font-size: 50px;
+        margin: 0 auto;
+        color: cornflowerblue;
+        top: 2%;
+        text-align: center;
+    }
+
+    .upper {
+        background-color:darkgreen;
+        color: white;
+        height: 100%;
+        padding: 1%;
+    }
+
+    .navigation {
+        height: 75%;
+    }
+
+    #overtop {
+        background-color: darkgoldenrod;
+        height: 75px;
+    }
+
+    .upper li {
+        list-style-type: none;
+        display: inline;
+        font-size: .85em;
+        padding-right: 7px;
+    }
+
+    .image {
+        margin: auto;
+    }
+
+    .col-3 {
+        color: green;
+        float: left;
+        width: 50%;
+    }
+
+    .buttons {
+        border: none;
+        background-color: green;
+        color: white;
+        padding: 18px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline;
+        font-size: 10px;
+        border-radius: 10px;
+        margin-top: 30px;
+        column-gap: 50px;
+        margin-right: 30px;
+    }
+
+    .menu li {
+        list-style-type: none;
+        display: inline;
+        font-size: .85em;
+        padding-right: 8px;
+    }
+
+    .loginBTN {
+        border-radius: 500px;
+        text-decoration: none;
+        display: inline-block;
+        color: white;
+    }
+    .al {
+        color:white;
+    }
+</style>
+    <div class="row">
+        <div class="col-sm-3">
+                <img src="~/Content/cognizant.png" style="height:80px;width:300px">
+        </div>
+        <div class="col-sm-6">
+            <h1 class="header1">Shopping mall </h1>
+            <h1 class="header2">Management</h1>
+        </div>
+        <div class="col-sm-3">
+            <button class="buttons">@Html.ActionLink("Admin","LoginIndex","Login", new { area = "" }, new { @style = "color:white" })</button>
+            <button class="buttons">@Html.ActionLink("Shop Owner", "LoginIndex", "Login", new { area = "" }, new { @style = "color:white" })</button>
+        </div>
+    </div>
+<img src="~/Content/shopping.jpg" style="height:330px;width:100%" class="image"><br />
+<h4 class="description">Cognizant mall is a shopping mall located in Banjara Hills, Hyderabad, India. The 350,000 sq ft (33,000 m2) mall was opened to public on 1 May 2020.</h4>

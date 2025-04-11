@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+    #overtop {
+    background-color: darkgoldenrod;
+    height: 12px;
+    }
+    </style>
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("shopownernav")
+
+        <div class="container body-content">
+
+            @model ShoppingProjectA.Models.Shop
+
+            <div>
+                <h4>Shop</h4>
+                <hr />
+                <div class="form-horizontal">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.ShopName)</th>
+                            <td>@Html.EditorFor(model => model.ShopName)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.BusinessCategory)</th>
+                            <td>@Html.DisplayFor(model => model.BusinessCategory)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.NoOfEmployees)</th>
+                            <td>@Html.DisplayFor(model => model.NoOfEmployees)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.WrkngHrs)</th>
+                            <td>@Html.DisplayFor(model => model.WrkngHrs)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Holiday)</th>
+                            <td>@Html.DisplayFor(model => model.Holiday)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.LicenseNo)</th>
+                            <td>@Html.DisplayFor(model => model.LicenseNo)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.LicenseExp)</th>
+                            <td>@Html.DisplayFor(model => model.LicenseExp)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.ShopOwnerName)</th>
+                            <td>@Html.DisplayFor(model => model.ShopOwnerName)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.ContactNumber)</th>
+                            <td>@Html.DisplayFor(model => model.ContactNumber)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Email)</th>
+                            <td>@Html.DisplayFor(model => model.Email)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.UserId)</th>
+                            <td>@Html.DisplayFor(model => model.UserId)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Session["Sid"] })
+                </p>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    else
+    {
+        @Html.Partial("sessionexpired");
+    }
+</body>
+</html>

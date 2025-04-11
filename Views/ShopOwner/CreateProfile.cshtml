@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        #overtop {
+            background-color: darkgoldenrod;
+            height: 12px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#bttn").on("click", function () {
+                if ($("#sn").val() != '' || $("#bc").val() != '' || $("#hl").val() != '' || $("#wh").val() != '' || $("#ne").val() != '' || $("#le").val() != '' || $("#ln").val() != '') {
+
+                    alert('Profile created successfully! Please Login again.');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        <div id="overtop">
+            <div style="background-color:green" class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @Html.ActionLink("Shopping Mall", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+
+                            <li style="color:white; margin-left: 600px; margin-top:15px;"> Hey @TempData["shopOwnerName"] !</li>
+                            @{
+                                TempData["shopOwner"] = TempData["shopOwnerName"];
+                            }
+                            <li style="margin-left: 25px;">@Html.ActionLink("LogOut", "LogOut", "Login")</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+
+            @model ShoppingProjectA.Models.Shop
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/jqueryval")
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Shop</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ShopName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ShopName, new { htmlAttributes = new { @id = "sn", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ShopName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BusinessCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.BusinessCategory, (IEnumerable<SelectListItem>)ViewData["BusinessCategories"], "Select Category", new { @id = "bc", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.BusinessCategory, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NoOfEmployees, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NoOfEmployees, new { htmlAttributes = new { @id = "ne", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NoOfEmployees, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.WrkngHrs, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.WrkngHrs, new { htmlAttributes = new { @id = "wh", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.WrkngHrs, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Holiday, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Holiday, new { htmlAttributes = new { @id = "hl", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Holiday, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LicenseNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.LicenseNo, new { htmlAttributes = new { @id = "ln", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LicenseNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LicenseExp, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.LicenseExp, new { htmlAttributes = new { @id = "le", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LicenseExp, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ShopOwnerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ShopOwnerName, new { htmlAttributes = new { @id = "son", @Value = ViewBag.Name, @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ShopOwnerName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @id = "cn", @Value = ViewBag.ContactNumber, @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @id = "em", @Value = ViewBag.Email, @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @id = "ui", @Value = ViewBag.UserId, @readonly = true, @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input id="bttn" type="submit" value="Add" class="btn btn-success" />
+                        </div>
+                        <div class="col-md-offset-2 col-md-10">
+                            <input style="margin-top: 5px;" type="reset" value="Reset" class="btn btn-default" />
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    else
+    {
+        @Html.Partial("sessionexpired");
+    }
+</body>
+</html>

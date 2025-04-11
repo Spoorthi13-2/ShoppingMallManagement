@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+
+
+        .mybrdr {
+            border: double;
+            border-color: navy;
+        }
+
+        #overtop {
+            background-color: darkgoldenrod;
+            height: 12px;
+        }
+    </style>
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("adminnav")
+
+        <div class="container body-content">
+
+            @model IEnumerable<ShoppingProjectA.Models.ReviewT>
+
+            <h2 style="color:navy; text-align:center;">Reviews/Feedbacks</h2>
+            <div class="bdy">
+                <div class="mybrdr">
+                    @if (Model.Count() > 0)
+                    {
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("Request ID")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("User Id")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Satisfaction")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Service")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Recommendation of site")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Additional feedback")
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UserId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Answer1)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Answer2)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Answer3)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Answer4)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p style="color:navy; text-align:center;">No feedbacks for now.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    else
+    {
+        @Html.Partial("sessionexpired");
+    }
+</body>
+</html>
+
+

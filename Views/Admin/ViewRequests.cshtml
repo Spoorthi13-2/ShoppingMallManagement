@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping mall management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        #overtop {
+            background-color: darkgoldenrod;
+            height: 12px;
+        }
+    </style>
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("adminnav")
+        <div class="container body-content">
+
+            @model IEnumerable<ShoppingProjectA.Models.RequestTable>
+
+            @if (Model.Count() > 0)
+            {
+                <h2 style="color:navy; text-align:center;">Requests Table</h2>
+                <div class="form-horizontal">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.StoreNo)</th>
+                            <th>@Html.DisplayNameFor(model => model.StoreLoc)</th>
+                            <th>@Html.DisplayNameFor(model => model.Type)</th>
+                            <th>@Html.DisplayNameFor(model => model.ShopOwnerName)</th>
+                            <th>@Html.DisplayNameFor(model => model.ContactNumber)</th>
+                            <th>@Html.DisplayNameFor(model => model.BusinessCategory)</th>
+                            <th>@Html.DisplayNameFor(model => model.AgreementTenure)</th>
+                            <th>@Html.DisplayNameFor(model => model.Remarks)</th>
+                            <th>@Html.DisplayNameFor(model => model.Status)</th>
+                            <th>@Html.DisplayName("Action")</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.StoreNo)</td>
+
+                                <td>@Html.DisplayFor(model => item.StoreLoc)</td>
+
+                                <td>@Html.DisplayFor(model => item.Type)</td>
+
+                                <td>@Html.DisplayFor(model => item.ShopOwnerName)</td>
+
+                                <td>@Html.DisplayFor(model => item.ContactNumber)</td>
+
+                                <td>@Html.DisplayFor(model => item.BusinessCategory)</td>
+
+                                <td> @Html.DisplayFor(model => item.AgreementTenure)</td>
+
+                                <td>@Html.DisplayFor(model => item.Remarks)</td>
+
+                                <td>
+                                    @Html.DisplayFor(model => item.Status)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.ActionLink("Approve", "ApproveReq", "Admin", new { name = item.ShopOwnerName, storeno = item.StoreNo },
+                                 new { @class = "btn btn-success" })
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.ActionLink("Reject", "RejectReq", "Admin", new { name = item.ShopOwnerName, storeno = item.StoreNo },
+                                 new { @class = "btn btn-danger" })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            }
+            else
+            {
+                <h4 style="text-align: center; color: navy">No Requests For now.</h4>
+            }
+
+        </div>
+
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+
+    else
+    {
+        @Html.Partial("sessionexpired");
+    }
+</body>
+</html>

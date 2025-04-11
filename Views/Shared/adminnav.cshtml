@@ -1,0 +1,32 @@
+﻿<div id="overtop">
+    <div style="background-color:green" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Shopping Mall", "Index", "Home", new { area = "" }, new { @style = "color:white;", @class = "navbar-brand" })
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    <li style="margin-left: 100px; margin-top: 15px; color:white"> Hey @TempData["adminName"] !</li>
+                    @{TempData["admin"] = TempData["adminName"];}
+                    <li style="margin-left: 5px;">@Html.ActionLink("Home", "AdminIndex2", "Admin", new { area = "" }, new { @style = "color:white;" })</li>
+                    <li style="margin-left: 5px;">@Html.ActionLink("Add Store", "AddStore", "Admin", new { area = "" }, new { @style = "color:white;" })</li>
+                    <li style="margin-left: 5px;">@Html.ActionLink("Store Details", "StoreMin", "Admin", new { area = "" }, new { @style = "color:white;" })</li>
+                    <li style="margin-left: 5px;">@Html.ActionLink("View Requests", "ViewRequests", "Admin", new { area = "" }, new { @style = "color:white;" })</li>
+                    <li style="margin-left: 5px;">@Html.ActionLink("Feedbacks", "ViewFeedbacks", "Admin", new { area = "" }, new { @style = "color:white;" })</li>
+                    <li style="margin-left: 5px;">@Html.ActionLink("Help Request", "HelpRequest", "Admin", new { area = "" }, new { @style = "color:white;" })</li>
+                    <li style="margin-left: 5px;">@Html.ActionLink("Reports", "Reports", "Admin", new { area = "" }, new { @style = "color:white;" })</li>
+                    <li style="margin-left: 5px;">@Html.ActionLink("LogOut", "LogOut", "Login", new { area = "" }, new { @style = "color:white;" })</li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        #overtop {
+            background-color: darkgoldenrod;
+            height: 12px;
+        }
+    </style>
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("shopownernav")
+
+    <div class="container body-content">
+
+        @model ShoppingProjectA.Models.ReviewT
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <style>
+            .myform {
+                border: double;
+                border-color: navy;
+                margin-left: 270px;
+                margin-right: 270px;
+                background: linear-gradient(to top, white, cadetblue);
+            }
+
+            .frm {
+                margin-left: 100px;
+            }
+        </style>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h2 style="text-align:center; color:navy;">Review/Feedback Form</h2>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="myform">
+                    <div class="frm">
+                        <div class="form-group">
+                            <div style="margin-top:10px;">
+                                @Html.LabelFor(model => model.UserId)<br />
+                            </div>
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @Value = ViewBag.userid, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Answer1)<br />
+                            <div class="col-md-3">
+                                @Html.RadioButton("Answer1", "Satisfied")&nbsp;Satisfied<br />
+                                @Html.RadioButton("Answer1", "Neutral")&nbsp;Neutral <br />
+                                @Html.RadioButton("Answer1", "Dissatisfied")&nbsp;Dissatisfied <br />
+                                @Html.ValidationMessageFor(model => model.Answer1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Answer2)<br />
+                            <div class="col-md-4">
+                                @Html.RadioButton("Answer2", "1")&nbsp;1
+                                @Html.RadioButton("Answer2", "2")&nbsp;2
+                                @Html.RadioButton("Answer2", "3")&nbsp;3
+                                @Html.RadioButton("Answer2", "4")&nbsp;4
+                                @Html.RadioButton("Answer2", "5")&nbsp;5
+
+                                @Html.ValidationMessageFor(model => model.Answer2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Answer3)<br />
+                            <div class="col-md-4">
+                                @Html.RadioButton("Answer3", "1")&nbsp;1
+                                @Html.RadioButton("Answer3", "2")&nbsp;2
+                                @Html.RadioButton("Answer3", "3")&nbsp;3
+                                @Html.RadioButton("Answer3", "4")&nbsp;4
+                                @Html.RadioButton("Answer3", "5")&nbsp;5
+
+                                @Html.ValidationMessageFor(model => model.Answer3, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Answer4)<br />
+                            <div class="col-md-3">
+                                @Html.TextAreaFor(model => model.Answer4)
+                                @Html.ValidationMessageFor(model => model.Answer4, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Submit" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    else
+    {
+        @Html.Partial("sessionexpired");
+    }
+</body>
+</html>

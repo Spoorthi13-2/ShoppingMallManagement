@@ -1,0 +1,34 @@
+﻿@model ShoppingProjectA.Models.Help
+<span style="color:red"> @Html.ValidationMessageFor(m => m.Solution)</span>
+<style>
+    .myform {
+        margin-left: 300px;
+        margin-right: 300px;
+        border: double;
+    }
+
+    .my {
+        margin-left: 250px;
+    }
+</style>
+
+<h2 style="color:navy; text-align:center;">Reply To Ticket</h2>
+<div class="myform">
+    @using (Html.BeginForm("ReplyToTicket", "Admin"))
+    {
+        <div class="my">
+            <div class="form-group">
+                <div class="col-md-5">
+                    @Html.LabelFor(m => m.Solution)
+                    @Html.TextBoxFor(m => m.Solution, new { @class = "form-control" })
+                </div>
+
+            </div>
+            <div class="form-group">
+                <br /><br /><br /><br /><button type="submit" class="btn btn-success">Send Reply</button>
+            </div>
+        </div>
+
+    }
+</div>
+

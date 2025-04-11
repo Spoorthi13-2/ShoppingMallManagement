@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping mall management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        #overtop {
+            background-color: darkgoldenrod;
+            height: 12px;
+        }
+        
+    </style>
+
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("adminnav")
+        @model ShoppingProjectA.Models.ReportsVM
+
+    <div class="container body-content">
+        <div class="myreport">
+            <div class="Occupiedreport">
+                <h2 style="color:navy; text-align:center;">Occupied Store Details</h2>
+                <table style="border-style:groove;" class="table table-hover">
+                    <thead>
+
+                        <tr style="background-color:cadetblue">
+                            <th>Store Number</th>
+                            <th>Shop name</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Location</th>
+                            <th>Agreement Tenure</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.storeDetailsOcc)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.StoreNo) </td>
+                                <td>@Html.DisplayFor(modelItem => item.ShopName) </td>
+                                <td>@Html.DisplayFor(modelItem => item.Type) </td>
+                                <td>@Html.DisplayFor(modelItem => item.Amount) </td>
+                                <td>@Html.DisplayFor(modelItem => item.StoreLocation) </td>
+                                <td>@Html.DisplayFor(modelItem => item.AgreementTenure) </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="Vacantreport">
+                <h2 style="color:navy; text-align:center;">Vacant Store Details</h2>
+                <table style="border-style:groove;" class="table table-hover">
+                    <thead>
+
+                        <tr style="background-color:cadetblue">
+                            <th>Store Number</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Store Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.storeDetailsVac)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.StoreNo) </td>
+                                <td>@Html.DisplayFor(modelItem => item.StoreLocation) </td>
+                                <td>@Html.DisplayFor(modelItem => item.Type) </td>
+                                <td>@Html.DisplayFor(modelItem => item.Amount) </td>
+                                <td>@Html.DisplayFor(modelItem => item.StoreSize) </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    else
+    {
+        @Html.Partial("sessionexpired");
+    }
+</body>
+</html>

@@ -1,0 +1,96 @@
+﻿@using CaptchaMvc.HtmlHelpers;
+
+@model ShoppingProjectA.Models.Registration
+@{
+    ViewBag.Title = "LoginIndex";
+}
+
+<h2 style="color: navy; text-align:center">Login Now!</h2>
+
+
+<style>
+    #lbl {
+        padding-right: 10px;
+    }
+
+    .blank_row {
+        height: 30px;
+    }
+
+    #formBody {
+        padding-left: 80px;
+    }
+
+    #logform {
+        margin-top: 10px;
+        padding-top: 30px;
+        margin-left: 400px;
+        height: 550px;
+        width: 550px;
+        border: double;
+        border-color: navy;
+    }
+
+    .log {
+        margin-right: 30px;
+    }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div id="logform">
+            <div class="form-horizontal" id="formBody">
+                <br />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="log">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserId, htmlAttributes: new { @id = "lbl", @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @id = "us", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="blank_row">
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @id = "lbl", @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id = "pw", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="margin-left: 100px;">
+                        @* @Html.MathCaptcha()  *@
+                        @Html.Captcha(4)
+                    </div>
+                    <br />
+                    <p style="color: red">  @Html.DisplayFor(m => m.ErrorMesssage) </p>
+
+                    <p> If not registered, please @Html.ActionLink("Register Here", "Index", "Registration")</p>
+                    <p>Forgot Userid? please @Html.ActionLink("Click here","ForgotIdIndex","ForgotId")</p>
+                    <p>Forgot Password? reset @Html.ActionLink("Here", "ForgotPwIndex", "ForgotId")</p>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="reg" style="color:white; background-color:green; margin-right: 30px; margin-left: 10px;" type="submit" value="Login" class="btn btn-default" />
+
+                        <input style="color:black; background-color:white" type="reset" value="Reset" class="btn btn-default" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+    

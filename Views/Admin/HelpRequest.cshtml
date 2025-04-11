@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+
+
+        .mybrdr {
+            border: double;
+            border-color: navy;
+        }
+
+        #overtop {
+            background-color: darkgoldenrod;
+            height: 12px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("adminnav")
+
+    <div class="container body-content">
+
+        @model IEnumerable<ShoppingProjectA.Models.Help>
+        
+
+            <h2 style="color:navy; text-align:center;">Reviews/Feedbacks</h2>
+            <div class="bdy">
+                <div class="mybrdr">
+
+                    @if (Model.Count() > 0)
+                    {
+                        using (Html.BeginForm("SaveRequest","Admin"))
+                        {
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Request ID")
+                                        </th>
+                                        <td>
+                                            @Html.DisplayName("User Id")
+                                        </td>
+                                        <th>
+                                            @Html.DisplayName("Issue")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Description")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Date Of Ticket")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Status")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Solution")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Action")
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.RequestId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UserId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Issue)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DateOfTicket)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Status)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Solution)
+                                        </td>
+                                        <th>
+                                            @Html.ActionLink("Reply", "ReplyToTicket", new { id = item.RequestId }, new { @class = "btn btn-success" })
+                                        </th>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            }
+                        }
+
+                    else
+                    {
+                        < p style = "color:navy; text-align:center;" > No help requests for now.</ p >
+                    }
+                </div>
+            </div>
+        </div>
+        
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    
+    else
+    {
+        @Html.Partial("sessionexpired");
+    }
+    
+</body>
+</html>
+
+
+

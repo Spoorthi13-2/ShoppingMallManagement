@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .myForm {
+            margin-left: 100px;
+            border: double;
+            border-color: navy;
+        }
+
+        #formdata {
+            margin-top: 20px;
+            margin-left: 100px;
+        }
+            #overtop {
+                background-color: darkgoldenrod;
+                height: 12px;
+            }
+        </style>
+    </head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("adminnav")
+
+        <div class="container body-content">
+
+            @model ShoppingProjectA.Models.StoreDetails
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/jqueryval")
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $("#mydiv").hide();
+                    var count = 1;
+                    $("input[name='OccupancyStatus']").change(function () {
+
+                        $("#mydiv").toggle();
+                        count++;
+                        if (count % 2 != 0) {
+                            $("#inpval1").val("NA");
+                            $("#inpval2").val() ="NA";
+                            $("#inpval3").val() = 0;
+                        }
+                    });
+                    $("#b").on("click", function () {
+                        if ($("#sn").val() == '' || $("#sa").val() == '' || $("#amt").val() == '' || $("#oc").val() == '' || $("#st").val() == '' || $("#ss").val() == '' || $("#sl").val() == '') {
+                            alert('Please update the highlighted mandatory field(s)');
+                        }
+                        else {
+                            alert('New store added successfully!');
+                        }
+                    });
+                });
+            </script>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <h2 style="color:navy; text-align: center;">Add Store Details</h2>
+                <div class="myForm">
+
+
+                    <div class="form-horizontal" id="formdata">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StoreNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.StoreNo, new { htmlAttributes = new { @id = "sn", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.StoreNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StoreSize, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.StoreSize, new { htmlAttributes = new { @id = "ss", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.StoreSize, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StoreLocation, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("StoreLocation", new[] {
+                                                                     new SelectListItem() { Text="1st floor", Value = "1st floor" },
+                                                                     new SelectListItem() { Text="2nd floor", Value = "2nd floor" },
+                                                                     new SelectListItem() { Text="3rd floor", Value = "3rd floor" },
+                                                                     new SelectListItem() { Text="4th floor", Value = "4th floor" }
+                                                                 },"Select location", new {@id="sl", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.StoreLocation, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Area, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Area, new { htmlAttributes = new { @id = "sa", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Area, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OccupancyStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.RadioButton("OccupancyStatus", "Occupied")&nbsp;Occupied
+                                @Html.RadioButton("OccupancyStatus", "Vacant", true)&nbsp;Vacant
+                                @Html.ValidationMessageFor(model => model.OccupancyStatus, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div id="mydiv" style="display:none;">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ShopName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.ShopName, new { htmlAttributes = new { value = "NA", @id = "inpval1", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ShopName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.BusinessCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.BusinessCategory, (IEnumerable<SelectListItem>)ViewData["BusinessCategories"], "Select Category", new { value = "NA", @id = "inpval2", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BusinessCategory, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AgreementTenure, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.AgreementTenure, new { htmlAttributes = new { value = "NA", @id = "inpval3", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AgreementTenure, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @id = "st", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @id = "amt", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="b" type="submit" value="Add store details" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    else
+    {
+        @Html.Partial("sessionexpired");
+
+    }
+</body>
+</html>

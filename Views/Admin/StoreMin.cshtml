@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+
+
+        .mybrdr {
+            border: double;
+            border-color: navy;
+        }
+        #overtop {
+            background-color: darkgoldenrod;
+            height: 12px;
+        }
+    </style>
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("adminnav")
+        <div class="container body-content">
+
+            @model IEnumerable<ShoppingProjectA.Models.StoreDetails>
+
+            <h2 style="color:navy; text-align:center;">StoreDetails</h2>
+            <div class="bdy">
+                <div class="mybrdr">
+
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Store Number")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Store Location")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Occupancy Status")
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                
+                            <tr>
+                                @{ string s = item.StoreNo; }
+                                <td>
+                                    @Html.ActionLink(s, "Store", new { storeNo = item.StoreNo })
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StoreLocation)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OccupancyStatus)
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    else
+    {
+        @Html.Partial("sessionexpired");
+    }
+</body>
+</html>
+

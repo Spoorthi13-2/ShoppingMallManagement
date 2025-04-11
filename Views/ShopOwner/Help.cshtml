@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        #overtop {
+            background-color: darkgoldenrod;
+            height: 12px;
+        }
+    </style>
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("shopownernav")
+
+        <div class="container body-content">
+
+            @model ShoppingProjectA.Models.Help
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/jqueryval")
+
+            <style>
+                .myform {
+                    border: double;
+                    border-color: navy;
+                    margin-left: 270px;
+                    margin-right: 270px;
+                    background: linear-gradient(to top, white, cadetblue);
+                }
+
+                .frm {
+                    margin-left: 100px;
+                }
+            </style>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h2 style="text-align:center; color:navy;">Review/Feedback Form</h2>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="myform">
+                        <div class="frm">
+                            <div class="form-group">
+                                <div style="margin-top:10px;">
+                                    @Html.LabelFor(model => model.UserId)<br />
+                                </div>
+
+                                <div class="col-md-6">
+                                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @Value = Session["userid"], @readonly = true, @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div style="margin-top:10px;">
+                                    @Html.LabelFor(model => model.Issue)<br />
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(model => model.Issue, (IEnumerable<SelectListItem>)ViewData["Issue"], "Select Issue", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Issue, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description)<br />
+                                <div class="col-md-6">
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DateOfTicket)<br />
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.DateOfTicket, new { htmlAttributes = new { @Value = DateTime.Now.Date.ToString("dd-MM-yyyy"), @readonly = true, @class = "form-control" } })
+
+                                    @Html.ValidationMessageFor(model => model.DateOfTicket, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.DisplayFor(model => model.Solution)
+                            </div>
+                            <div>
+                                <p>My Tickets  @Html.ActionLink(" Click here","ShopOwnerTickets","ShopOwner")</p>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Submit" class="btn btn-success" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+    else
+    {
+        @Html.Partial("sessionexpired")
+    }
+</body>
+</html>

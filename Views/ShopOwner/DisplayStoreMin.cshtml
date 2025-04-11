@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+    #overtop {
+    background-color: darkgoldenrod;
+    height: 12px;
+    }
+    </style>
+</head>
+<body>
+    @if (Session["userid"] != null)
+    {
+        @Html.Partial("shopownernav")
+
+        <div class="container body-content">
+
+            @model IEnumerable<ShoppingProjectA.Models.StoreDetails>
+
+            <h2 style="color:navy; text-align:center;">Store Details</h2>
+            <div class="bdy">
+                <div class="mybrdr">
+                    @if (Model.Count() > 0)
+                    {
+                        <div class="mytbl">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Store Number")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Store Location")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Occupancy Status")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Type")
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        string s = item.StoreNo;
+                                        <tr>
+                                            <td>
+                                                @Html.ActionLink(s, "DisplayStore", "ShopOwner")
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.StoreLocation)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.OccupancyStatus)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Type)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <p>No such filter criteria is present. Please @Html.ActionLink("Click here ", "FilterListShopOwner", "ShopOwner") to try again!</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    else
+    {
+        @Html.Partial("sessionexpired");
+    }
+</body>
+</html>
